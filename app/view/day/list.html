@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title><?=$data['projectName']?>项目—百度信息流统计</title>
+    <style>
+        body {
+            min-height: 100vh;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-family: '微软雅黑', Arial, sans-serif;
+        }
+
+        #wrapper {
+            width: 90%; /* 调整为90% */
+            max-width: 980px; /* 设置最大宽度为800px */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .actual-fans-input {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .light-blue-column th {
+            background-color: #2380fd;
+            color: white;
+        }
+
+        tfoot tr td {
+            color: red;
+            font-weight: bold;
+        }
+
+        tfoot tr td:first-child {
+            border-top: 2px solid #f00;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            padding: 8px 15px;
+            background-color: #2380fd;
+            color: white;
+            border: none;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .title-row th {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .tfoot-btn {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .header {
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left img {
+            height: 40px;
+        }
+
+        .header-center {
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .watermark {
+            position: absolute;
+            color: black;
+            font-size: 20px;
+            opacity: 0.1;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .center-div{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="center-div">
+    <table id="myTable">
+        <tr class="title-row light-blue-column">
+            <th colspan="9">
+                <div class="header">
+                    <div class="header-left">
+                        <img src="/static/images/logo.jpg?789" alt="Logo">
+                    </div>
+                    <div class="header-center">
+                        <?=$data['projectName']?>项目—实时消费
+                    </div>
+                    <div class="header-right">
+                    </div>
+                </div>
+            </th>
+        </tr>
+        <tr class="header-row light-blue-column">
+            <th rowspan="2" style="text-align: center">项目名称</th>
+            <th rowspan="2" style="text-align: center">账号</th>
+            <th colspan="7">数据截止 <?=$data['curdate']?></th>
+        </tr>
+        <tr class="date-row light-blue-column">
+            <th>消耗/币</th>
+            <th>消耗/现金</th>
+            <th>展现</th>
+            <th>点击</th>
+            <th>实际加粉成功量</th>
+            <th>加粉成本/币</th>
+            <th>加粉成本/现金</th>
+        </tr>
+        <?php
+           foreach ($data['responseData'] as $k => $v) {
+        echo '<tr>';
+        if ($k == 0) {
+        echo '<td rowspan="' . count($data['responseData']) . '">' . $data['projectName'] . '</td>';
+        }
+        echo '<td>' . $v['userName'] . '</td>';
+        echo '<td>' . round($v['cost'],2) . '</td>';
+        echo '<td>' . round($v['cost_money'],1) . '</td>';
+        echo '<td>' . $v['impression'] . '</td>';
+        echo '<td>' . $v['click'] . '</td>';
+        echo '<td><input type="number" class="actual-fans-input" name="'.$v['userId'].'" value="'.$v['trueWeixinNum'].'"></td>';
+        echo '<td>' . $v['trueWeixinNumMoney'] . '</td>';
+        echo '<td>' . $v['trueWeixinNumTrueMoney'] . '</td>';
+        echo '</tr>';
+        }
+        ?>
+
+        <tfoot>
+        <tr>
+            <td colspan="2">合计</td>
+            <td><?=round($data['cost_sum'],2)?></td>
+            <td><?=round($data['cost_money_sum'])?></td>
+            <td><?=round($data['impression_sum'])?></td>
+            <td><?=round($data['click_sum'])?></td>
+            <td><?=$data['trueWeixinNum_sum']?></td>
+            <td><?=$data['trueWeixinNumMoney_sum']?></td>
+            <td><?=number_format($data['trueWeixinNumTrueMoney_sum'],1)?></td>
+        </tr>
+    </table>
+    <div class="tfoot-btn">
+        <input type="hidden" name="csrf_token" value="<?=$data['csrf_token']?>">
+        <button id="submitBtn" class="submit-btn">提交</button>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        $("#submitBtn").click(function () {
+            let postData = {};
+            $(".actual-fans-input").each(function () {
+                let name = $(this).attr('name');
+                let value = $(this).val();
+                postData[name] = value;
+            });
+            let csrfToken = $('input[name="csrf_token"]').val();
+            postData['csrf_token'] = csrfToken;
+            $.post('/day/update/', postData, function (data) {
+                if (data.code === 0) {
+                    Swal.fire({
+                        title: '提交成功',
+                        text: '你的数据已成功提交！',
+                        icon: 'success',
+                        confirmButtonText: '返回首页'
+                    }).then((result) => {
+                            location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: '提交失败',
+                        text: '请联系旭成客服。',
+                        icon: 'error',
+                        confirmButtonText: '确定'
+                    });
+                }
+            }).fail(function () {
+                alert('提交失败，请联系旭成客服。');
+            });
+        });
+        let table = document.getElementById('myTable');
+        let watermarkText = '旭成传媒';
+        let watermarksCount = 10;
+
+        function createWatermark(text, table) {
+            let watermark = document.createElement('div');
+            watermark.className = 'watermark';
+            watermark.textContent = text;
+
+            // 设置水印样式
+            let angle = Math.random() * 360;
+            let tableRect = table.getBoundingClientRect();
+            let x = Math.random() * (table.clientWidth - 100); // 随机 x 坐标
+            let y = Math.random() * (table.clientHeight - 50); // 随机 y 坐标
+
+            watermark.style.position = 'absolute';
+            watermark.style.transform = `rotate(${angle}deg)`;
+            watermark.style.left = `${x}px`;
+            watermark.style.top = `${y}px`;
+            watermark.style.pointerEvents = 'none'; // 确保水印不会影响表格交互
+
+            table.appendChild(watermark);
+        }
+
+        // 确保table是相对定位
+        table.style.position = 'relative';
+
+        // 创建多个水印
+        for (let i = 0; i < watermarksCount; i++) {
+            createWatermark(watermarkText, table);
+        }
+    });
+</script>
+</body>
+</html>

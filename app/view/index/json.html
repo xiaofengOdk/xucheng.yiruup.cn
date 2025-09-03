@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>旭成数据报告</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/panda-syntax-dark.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch(window.location.href+'&highlight=true')
+                .then(response => response.json())
+                .then(data => {
+                    // 使用 highlight.js 来美化 JSON 数据
+                    document.getElementById('jsonPretty').textContent = JSON.stringify(data, null, 4);
+                    hljs.highlightBlock(document.getElementById('jsonPretty'));
+                })
+                .catch(error => console.error('Error:', error));
+        });
+        function getCurrentURLInfo() {
+            var url = window.location.href;
+            var search = window.location.search;
+            var params = new URLSearchParams(search);
+
+            console.log('Current URL:', url);
+            console.log('Query String:', search);
+
+            // 打印所有参数
+            params.forEach(function (value, key) {
+                console.log(key, value);
+            });
+
+            return {
+                url: url,
+                params: Object.fromEntries(params)
+            };
+        }
+
+        var urlInfo = getCurrentURLInfo();
+    </script>
+        </head>
+        <body>
+        <pre><code id="jsonPretty" class="json"></code></pre>
+        </body>
+        </html>

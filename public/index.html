@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//unpkg.com/layui@2.8.12/dist/css/layui.css">
+    <script src="//unpkg.com/layui@2.8.12/dist/layui.js"></script>
+</head>
+<body>
+<script>
+    layui.use(function(){
+        var layer = layui.layer,
+            form = layui.form;
+        layer.msg('Hello World', {icon: 6});
+        var url = layui.url();
+        console.log(url);
+        var device = layui.device('Chrome');
+        console.log(device);
+
+    });
+</script>
+
+<form class="layui-form" lay-filter="test">
+    动态插入的表单域
+</form>
+
+<!-- import layui -->
+<script>
+    layui.use(function(){
+        var form = layui.form;
+
+        // 当表单元素被动态插入时，需主动进行组件渲染才能显示
+        form.render(); // 渲染全部表单
+        form.render('select'); // 仅渲染 select 元素
+        form.render(null, 'test'); // 仅渲染 lay-filter="test" 的容器内的全部表单
+        form.render('checkbox', 'test'); // 仅渲染  lay-filter="test" 的容器内的 checkbox 元素
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增页面</title>
+    <link rel="stylesheet" href="/app/admin/component/pear/css/pear.css" />
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="layui-form-item">
+                <label class="layui-form-label">端口</label>
+                <div class="layui-input-block">
+                    <input type="text" name="portName" lay-verify="title" autocomplete="off" placeholder="请输入端口"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">主户名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="masterName" lay-verify="title" autocomplete="off" placeholder="请输入主户名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">客户名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="clientName" lay-verify="title" autocomplete="off" placeholder="请输入客户名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">子账户名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="subName" lay-verify="title" autocomplete="off" placeholder="请输入子账户名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">垫付</label>
+                <div class="layui-input-block">
+                    <input type="text" name="payOn" lay-verify="title" autocomplete="off" placeholder="请输入垫付"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">日常记录</label>
+                <div class="layui-input-block">
+                    <textarea name="dailyRecord" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">子账户密码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="subNamePassword" lay-verify="title" autocomplete="off" placeholder="请输入子账户密码"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">客户子密保手机</label>
+                <div class="layui-input-block">
+                    <input type="text" name="clientSubPhone" lay-verify="title" autocomplete="off" placeholder="请输入手机号"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">客户主密保手机</label>
+                <div class="layui-input-block">
+                    <input type="text" name="clientMasterPhone" lay-verify="title" autocomplete="off" placeholder="请输入手机号"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">销售</label>
+                <div class="layui-input-block">
+                    <div name="sellId" id="sellId" value=""></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">优化师</label>
+                <div class="layui-input-block">
+                    <div name="youhuashiId" id="youhuashiId" value=""></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">物料进度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="materialSchedule" lay-verify="title" autocomplete="off" placeholder="请输入物料进度"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">推广区域</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ecxtensionArea" lay-verify="title" autocomplete="off" placeholder="请输入推广区域"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">比例</label>
+                <div class="layui-input-block">
+                    <input type="text" name="per" lay-verify="title" autocomplete="off" placeholder="请输入返点比例"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="types" value="2" title="加粉" checked>
+                    <input type="radio" name="types" value="1" title="表单" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否屏蔽</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="2" title="是">
+                    <input type="radio" name="status" value="1" title="否" checked>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
+                    lay-filter="user-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="pear-btn pear-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script src="/app/admin/component/layui/layui.js?v=2.8.12"></script>
+<script src="/app/admin/component/pear/pear.js"></script>
+<script>
+    //优化师
+    layui.use(["jquery", "xmSelect"], function () {
+        layui.$.ajax({
+            url: "/app/admin/baiduxinxiliu/youhuashiselect/?format=select",
+            dataType: "json",
+            success: function (res) {
+                let value = layui.$("#youhuashiId").attr("value");
+                let initValue = value ? value.split(",") : [];
+                res.data.unshift({value: "", name: "全部"});
+                res.data.shift({value: "", name: "暂未关联"});
+                layui.xmSelect.render({
+                    el: "#youhuashiId",
+                    name: "youhuashiId",
+                    initValue: initValue,
+                    data: res.data,
+                    value: "1",
+                    model: {"icon": "hidden", "label": {"type": "text"}},
+                    clickClose: true,
+                    radio: true,
+                });
+                if (res.code) {
+                    layui.popup.failure(res.msg);
+                }
+            }
+        });
+    });
+    //销售id
+    layui.use(["jquery", "xmSelect"], function () {
+        layui.$.ajax({
+            url: "/app/admin/baiduxinxiliu/sellselect/?format=select",
+            dataType: "json",
+            success: function (res) {
+                let value = layui.$("#sellId").attr("value");
+                let initValue = value ? value.split(",") : [];
+                res.data.unshift({value: "", name: "全部"});
+                res.data.shift({value: "", name: "暂未关联"});
+                layui.xmSelect.render({
+                    el: "#sellId",
+                    name: "sellId",
+                    initValue: initValue,
+                    data: res.data,
+                    value: "1",
+                    model: {"icon": "hidden", "label": {"type": "text"}},
+                    clickClose: true,
+                    radio: true,
+                });
+                if (res.code) {
+                    layui.popup.failure(res.msg);
+                }
+            }
+        });
+    });
+    layui.use(['form', 'jquery', "popup"], function() {
+        let form = layui.form;
+        let $ = layui.jquery;
+
+        form.on('submit(user-save)', function(data) {
+            $.ajax({
+                url: "/app/admin/baiduxinxiliuproject/insert",
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                success: function(result) {
+                    if (result.code) {
+                        return layui.popup.failure(res.msg);
+                    }
+                    return layui.popup.success("添加成功", function () {
+                        window.parent.location.reload();
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    });
+                }
+            })
+            return false;
+        });
+    })
+</script>
+<script>
+</script>
+</body>
+</html>
